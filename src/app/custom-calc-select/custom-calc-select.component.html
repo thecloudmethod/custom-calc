@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>{{ placeholder }}</mat-label>
+  <mat-select placeholder="Select a home size" [(ngModel)]="selectedValue" (selectionChange)="triggerChange()" >
+    <mat-option *ngFor="let option of parsedOptions" [value]="option.value">
+      {{option.option}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
