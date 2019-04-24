@@ -85,12 +85,12 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 // if we downlevel to EcmaScript 5 (CE are define for ES2015+)
 if (window['customElements']) {
     const script = document.createElement('script');
-    script.src = './assets/webcomponentsjs/custom-elements-es5-adapter.js';
+    script.src = 'https://github.com/thecloudmethod/custom-calc/tree/master/dist/custom-calc/assets/webcomponentsjs/custom-elements-es5-adapter.js';
     document.writeln(script.outerHTML);
 }
 
 if (!window['customElements']) {
     const script = document.createElement('script');
-    script.src = './assets/webcomponentsjs/bundles/webcomponents-sd-ce.js';
+    script.src = 'https://github.com/thecloudmethod/custom-calc/tree/master/dist/custom-calc/assets/webcomponentsjs/bundles/webcomponents-sd-ce.js';
     document.writeln(script.outerHTML);
 }
