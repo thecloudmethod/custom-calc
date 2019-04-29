@@ -43,3 +43,11 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.counter-input {
+    text-align: center !important;
+}
+
+.mat-form-field-label {
+    text-align: center !important;
+}

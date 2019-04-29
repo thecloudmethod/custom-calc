@@ -1,10 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface CustomWindow extends Window {
-  CostCalcValue: any;
-}
-
-declare let window: CustomWindow;
+import { Component, OnInit, Input } from '@angular/core';
+import { CostCaslValuesService } from '../services/cost-calc-values.service'
 
 @Component({
   selector: 'app-custom-calc-total',
@@ -12,9 +7,12 @@ declare let window: CustomWindow;
   styleUrls: ['./custom-calc-total.component.css']
 })
 export class CustomCalcTotalComponent implements OnInit {
-  total: number =  window.CostCalcValue;
+  total: number =  0;
 
-  constructor() { }
+  @Input() type: string;
+  @Input() description: string;
+
+  constructor(public ccvs: CostCaslValuesService) { }
 
   ngOnInit() {
   }
@@ -22,8 +20,8 @@ export class CustomCalcTotalComponent implements OnInit {
   currentValue() {
     let total: number = 0;
 
-    for(let option of Object.keys(window.CostCalcValue)) {
-      total = (total*1) + (window.CostCalcValue[option].value*1);
+    for(let option of Object.keys(this.ccvs._selected)) {
+      total = (total*1) + (this.ccvs._selected[option].value*1);
     }
 
     return total;

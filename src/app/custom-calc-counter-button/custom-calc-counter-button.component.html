@@ -1,0 +1,26 @@
+<div class="button-border" [class.selected]="selected" (mouseover)="hover=true" (mouseout)="hover=false" [style.border-color]="hover || multiplier > 0 ? secondary : primary">
+    <ng-container *ngIf="!editing; else counter" >
+            <ng-container *ngIf="image && !svg" >
+                <img [style.width]="width" [style.height]="height" [src]="image"/>
+            </ng-container>
+        
+            <div class="button" *ngIf="svgData" [innerHTML]="svgData | safe" [style.width]="width" [style.height]="height" [style.fill]=" multiplier > 0 ? secondary : primary"></div>
+            <div class="click-overlay" (click)="toggleButton()"></div>
+    </ng-container>
+</div>
+<div class="description">
+    {{ description }} <span *ngIf="multiplier > 0"> ({{ multiplier }})</span>
+</div>
+
+
+<ng-template #counter>
+    <mat-form-field class="counter-form" [style.width]="width" clickOutside  (clickOutside)="unToggleButton($event)">
+        <input class="counter-input" [style.width]="width" matInput type="text" [(ngModel)]="multiplier">
+        <button mat-button *ngIf="multiplier > -1" matPrefix mat-icon-button aria-label="decrease" (click)="decrease()" [disabled]="multiplier == 0 ">
+            <mat-icon>remove</mat-icon>
+        </button>
+        <button mat-button *ngIf="multiplier > -1" matSuffix mat-icon-button aria-label="increase" (click)="increase()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-form-field>
+</ng-template>

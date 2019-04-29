@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CustomWindow, Options } from '../interfaces';
+import { CostCaslValuesService } from '../services/cost-calc-values.service'
+
 @Component({
   selector: 'app-custom-calc-selected-options-list',
   templateUrl: './custom-calc-selected-options-list.component.html',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomCalcSelectedOptionsListComponent implements OnInit {
 
-  constructor() { }
+  selectedOptions: Array<any> = [];
+
+  constructor(public ccvs: CostCaslValuesService) { 
+  
+  }
 
   ngOnInit() {
+
   }
 
 }

@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label>{{ placeholder }}</mat-label>
-  <mat-select placeholder="Select a home size" [(ngModel)]="selectedValue" (selectionChange)="triggerChange()" >
+  <mat-select placeholder="Select a home size" [(ngModel)]="selectedValue" (selectionChange)="triggerChange($event)" >
     <mat-option *ngFor="let option of parsedOptions" [value]="option.value">
       {{option.option}}
     </mat-option>

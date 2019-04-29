@@ -1,1 +1,9 @@
-{{ currentValue() }}
+<span class="total-description"> {{ description }} </span>
+
+<ng-container *ngIf="type == 'currency'; else not">
+    <span class="total"> {{ currentValue() | currency }} </span>
+</ng-container>
+
+<ng-template #not>
+    <span class="total"> {{ currentValue() }} </span>
+</ng-template>

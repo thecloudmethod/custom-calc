@@ -9,9 +9,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomCalcTotalComponent } from './custom-calc-total/custom-calc-total.component';
 import { CustomCalcSelectedOptionsListComponent } from './custom-calc-selected-options-list/custom-calc-selected-options-list.component';
 import { CustomCalcButtonComponent } from './custom-calc-button/custom-calc-button.component';
+import { CustomCalcCounterButtonComponent } from './custom-calc-counter-button/custom-calc-counter-button.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { SafePipe } from './pipe/safe.pipe';
 
 import { SvgService } from './services/svg.service'
+import { CostCaslValuesService } from './services/cost-calc-values.service'
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -20,6 +23,8 @@ import { HttpModule } from '@angular/http';
     CustomCalcTotalComponent,
     CustomCalcSelectedOptionsListComponent,
     CustomCalcButtonComponent,
+    CustomCalcCounterButtonComponent,
+    ClickOutsideDirective,
     SafePipe
   ],
   imports: [
@@ -30,8 +35,8 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SvgService],
-  entryComponents: [CustomCalcSelectComponent, CustomCalcTotalComponent, CustomCalcButtonComponent]
+  providers: [SvgService, CostCaslValuesService],
+  entryComponents: [CustomCalcSelectComponent, CustomCalcTotalComponent, CustomCalcButtonComponent, CustomCalcCounterButtonComponent, CustomCalcSelectedOptionsListComponent]
 })
 export class AppModule { 
   constructor(
@@ -45,9 +50,13 @@ export class AppModule {
     var elCustomCalcSelectComponent = createCustomElement(CustomCalcSelectComponent,{injector:this.injector});
     var elCustomCalcTotalComponent = createCustomElement(CustomCalcTotalComponent,{injector:this.injector});
     var elCustomCalcButtonComponent = createCustomElement(CustomCalcButtonComponent,{injector:this.injector});
+    var elCustomCalcCounterButtonComponent = createCustomElement(CustomCalcCounterButtonComponent,{injector:this.injector});
+    var elCustomCalcSelectedOptionsListComponent = createCustomElement(CustomCalcSelectedOptionsListComponent,{injector:this.injector});
 
     customElements.define('custom-calc-select', elCustomCalcSelectComponent);
     customElements.define('custom-calc-total', elCustomCalcTotalComponent);
     customElements.define('custom-calc-button', elCustomCalcButtonComponent);
+    customElements.define('custom-calc-counter-button', elCustomCalcCounterButtonComponent);
+    customElements.define('custom-calc-selected-options', elCustomCalcSelectedOptionsListComponent);
   }
 }
