@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let option of ccvs._totalsList" >
+  <li *ngFor="let option of listItems() | async" >
     {{ option.description }}
   </li>
 </ul>

@@ -14,11 +14,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="styles.0545119c32a2bce19679.css"></head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thecloudmethod/custom-calc@master/dist/custom-calc/styles.0545119c32a2bce19679.css"></head>
 <body>
   <style>
+    .heading {
+      text-align: center
+    }
+
+    .heading h1 {
+        color: #042B3B
+    }
+
+    .heading h4 {
+        color: #373e4a
+    }
+
     .container-fluid {
-      font: normal normal normal 18px/1.75em avenir-lt-w01_35-light1475496,sans-serif;;
+      font: normal normal normal 18px/1.75em avenir-lt-w01_35-light1475496,sans-serif;
     }
     .serviceSelect {
       width: 100%;
@@ -36,6 +48,10 @@
       color: #B79F57 !important;
     }
 
+    custom-calc-select {
+        font: normal normal normal 15px/1em avenir-lt-w01_35-light1475496,sans-serif;    
+    }
+
     custom-calc-button {
       margin-bottom: 15px;
     }
@@ -43,6 +59,13 @@
     custom-calc-button > .description {
       max-width: 87px;
       min-height: 40px;
+      font: normal normal normal 15px/1em avenir-lt-w01_35-light1475496,sans-serif;
+    }
+
+    custom-calc-counter-button > .description {
+      max-width: 87px;
+      min-height: 40px;
+      font: normal normal normal 15px/1em avenir-lt-w01_35-light1475496,sans-serif;
     }
 
     .sticky-content {
@@ -57,61 +80,177 @@
       align-items: stretch;
       justify-content: center;
     }
+
+    .select-container{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: stretch;
+      align-content: flex-start;
+    }
+
+    .service-select {
+      flex-grow: 3;
+      margin-right: 7.5px;
+      margin-left: 7.5px;
+    }
+
+    .bathrooms-select {
+      flex-grow: 1;
+      flex-shrink: 0;
+      margin-right: 7.5px;
+      margin-left: 7.5px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: stretch;
+      align-content: flex-start
+    }
+
+    .button-container custom-calc-button, .button-container custom-calc-counter-button {
+      margin-right: 7.5px;
+      margin-left: 7.5px;
+      flex-basis: 20%;
+      flex-shrink: 0;
+      flex-grow: 1;
+    }
+
+    .service-heading {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .service-heading h4 {
+        color: #373e4a;
+        font: normal normal normal 18px/.7em avenir-lt-w01_35-light1475496,sans-serif;
+    }
+
+    .service-heading h6 {
+        color: #999999;
+        font: normal normal normal 15px/1em avenir-lt-w01_35-light1475496,sans-serif;
+    }
+
+    .select-container {
+      padding-right: 7.5px;
+      padding-left: 7.5px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 50px;
+      margin-bottom: 50px;
+      border-bottom: dashed 1px  #bbbbbb;
+    }
+
+    custom-calc-selected-options {
+      color: #999999;
+      font: normal normal normal 15px/1em avenir-lt-w01_35-light1475496,sans-serif;  
+    }
+
+    custom-calc-selected-options > ul li {
+      padding-top: 5px;
+    }
+
+    custom-calc-total .total {
+      font-weight: bold;
+      font-size: 20px;
+      color: #B79F57;
+    }
+
+    .estamation-heading {
+      text-align: center;
+    }
+
+    .estamation-heading .divider {
+      text-align: center;
+      height: 25px;
+      margin-bottom: 25px;
+    }
+
+    .estamation-heading h4 {
+        color: #042B3B;
+        font-weight: bold;
+        margin-top: 25px;
+    }
   </style>
   <div class="container-fluid">
     <div class="row calc-container">
-      <div class="col-md-9 col-sm-12">
+      <div class="col-md-9 col-sm-12 options-column">
         <div class="row">
-          <div class="col-md-6 col-xs-12">
-              <custom-calc-select placeholder="Service" sort="1" options='[{ "option": "One Bedroom Home (Under 1000 sq ft)", "value": 119  }, { "option": "Two Bedroom Home (Under 1600 sq ft)", "value": 139  }, { "option": "Three Bedroom Home (Under 2400 sq ft)", "value": 159  }, { "option": "Four Bedroom Home (Under 2800 sq ft)", "value": 189  }, { "option": "Five Bedroom Home (Under 3200 sq ft)", "value": 209  }, { "option": "Six Bedroom Home (Under 3600 sq ft)", "value": 249  }, { "option": "Carpet Cleaning", "value": 89  }]'></custom-calc-select>
-          </div>
-          <div class="col-md-6 col-xs-12">
-              <custom-calc-select placeholder="Bathrooms" sort="2" options='[{ "option": "1 Bathroom", "value": 0  }, { "option": "2 Bathrooms", "value": 20  }, { "option": "3 Bathrooms", "value": 40  }, { "option": "4 Bathrooms", "value": 60  }, { "option": "5 Bathrooms", "value": 80  }, { "option": "6 Bathrooms", "value": 100  }]'></custom-calc-select>  
-          </div>
+            <div class="col-xs-12 heading">
+                <h1>Get an estimate!</h1>
+                <h4>The price of what matters.</h4>
+            </div>
         </div>
 
+        <div class="divider"></div>
+
         <div class="row">
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-button placeholder="Deep cleaning" sort="3" value="110" height="50px" width="50px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_eb7793ff4c8b49269c6e8cf78846ee42.svg'></custom-calc-button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-button placeholder="Move in move out" sort="4" value="170" height="50px" width="50px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_ff91c1df92794b72bff05d482893433a.svg'></custom-calc-button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-button placeholder="Inside the fridge" sort="5" value="30" height="50px" width="50px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_4c39f7bc7fc843a0aacc92124d549298.svg'></custom-calc-button>  
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-button placeholder="Inside windows" sort="6" value="40" height="50px" width="50px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_d32709c34f304e1c8a4bc0c20b8a25e2.svg'></custom-calc-button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-button placeholder="Load of laundry" sort="7" value="30" height="50px" width="50px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_33336bc48c804407ba92ca5a2cdc3e53.svg'></custom-calc-button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-button placeholder="Inside the cabinets" sort="8" value="30" height="50px" width="50px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_1d5ec59da11e4df4bd939fc6ee303059.svg'></custom-calc-button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-counter-button placeholder="I have pets" counterPlaceholder="Pets" sort="9" value="18" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_375dc70d1ee7488a968f5c4b833af68b.svg'></custom-calc-counter-button>
-          </div>
-          <div class="col-md-2 col-sm-3 col-xs-3">
-            <custom-calc-counter-button placeholder="Carpet Cleaning" counterPlaceholder="Rooms" sort="10" value="99" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_dbde19b263714a12aaa91818d42002da.svg'></custom-calc-counter-button>
-          </div>
+            <div class="col-xs-12 text-left service-heading">
+                <h4>STEP 1: CHOOSE YOUR SERVICE</h4>
+                <h6>Tell us about your home.</h6>
+            </div>
         </div>
+
+        <div class="row no-gutters select-container">
+            <custom-calc-select class="service-select" placeholder="Service" sort="1" options='[{ "option": "One Bedroom Home (Under 1000 sq ft)", "value": 119  }, { "option": "Two Bedroom Home (Under 1600 sq ft)", "value": 139  }, { "option": "Three Bedroom Home (Under 2400 sq ft)", "value": 159  }, { "option": "Four Bedroom Home (Under 2800 sq ft)", "value": 189  }, { "option": "Five Bedroom Home (Under 3200 sq ft)", "value": 209  }, { "option": "Six Bedroom Home (Under 3600 sq ft)", "value": 249  }, { "option": "Studio Apartment", "value": 95  }, { "option": "Carpet Cleaning", "value": 89  }]'></custom-calc-select>
+            <custom-calc-select class="bathrooms-select" placeholder="Bathrooms" sort="2" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }, { "path": "Service.description" , "operator": "!=", "value": "Studio Apartment" }]' options='[{ "option": "1 Bathroom", "value": 0  }, { "option": "2 Bathrooms", "value": 20  }, { "option": "3 Bathrooms", "value": 40  }, { "option": "4 Bathrooms", "value": 60  }, { "option": "5 Bathrooms", "value": 80  }, { "option": "6 Bathrooms", "value": 100  }]'></custom-calc-select>  
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <div class="col-xs-12 text-left service-heading">
+                <h4>STEP 2: SELECT EXTRAS</h4>
+                <h6>We ALWAYS recommend a Deep Cleaning for the first visit in order to get your home prepared for ongoing maintenance. Deep Cleaning adds on extra time and additional checklist items, including outside of cabinets, baseboards, light switches, door frames & handles, and extra time for the tub/shower(s).</h6>
+            </div>
+        </div>
+
+        <div class="row no-gutters button-container">
+          <custom-calc-button placeholder="Deep cleaning" sort="3" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' value="110" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_eb7793ff4c8b49269c6e8cf78846ee42.svg'></custom-calc-button>
+          <custom-calc-button placeholder="Move in move out" sort="4" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' value="170" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_ff91c1df92794b72bff05d482893433a.svg'></custom-calc-button>
+          <custom-calc-button placeholder="Inside the fridge" sort="5" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' value="30" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_4c39f7bc7fc843a0aacc92124d549298.svg'></custom-calc-button>  
+          <custom-calc-button placeholder="Inside windows" sort="6" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' value="40" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_d32709c34f304e1c8a4bc0c20b8a25e2.svg'></custom-calc-button>
+          <custom-calc-button placeholder="Load of laundry" sort="7" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' value="30" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_33336bc48c804407ba92ca5a2cdc3e53.svg'></custom-calc-button>
+          <custom-calc-button placeholder="Inside the cabinets" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' sort="8" value="30" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_1d5ec59da11e4df4bd939fc6ee303059.svg'></custom-calc-button>
+          <custom-calc-counter-button placeholder="I have pets" rules='[{ "path": "Service.description" , "operator": "!=", "value": "Carpet Cleaning" }]' counterPlaceholder="Pets" sort="9" value="18" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_375dc70d1ee7488a968f5c4b833af68b.svg'></custom-calc-counter-button>
+          <custom-calc-counter-button placeholder="Carpet Cleaning" counterPlaceholder="Rooms" sort="10" value="99" height="75px" width="75px" primary="#042B3B" secondary="#B79F57" svg='https://static.wixstatic.com/shapes/c2a4d3_dbde19b263714a12aaa91818d42002da.svg'></custom-calc-counter-button>
+        </div>
+
+        <div class="divider"></div>
+
       </div>
 
-      
       <div class="col-md-3 col-sm-12 selected-totals-column">
         <div class="sticky-content">
             <div class="row">
-              <custom-calc-selected-options></custom-calc-selected-options>
+                <div class="col-xs-12 text-left estamation-heading">
+                    <h4>Estamation Summary</h4>
+                    <div class="divider"></div>
+                </div>
             </div>
-            
             <div class="row">
-              <custom-calc-total type="currency" description="Total"></custom-calc-total>
+              <custom-calc-selected-options rules='[{ "path": "Service.description" , "operator": "==", "value": "Carpet Cleaning", "placeholder": ["Service", "Bathrooms", "Deep cleaning", "Move in move out", "Inside the fridge", "Inside windows", "Load of laundry", "Inside the cabinets", "I have pets"], "display": false }, { "path": "Service.description" , "operator": "==", "value": "Studio Apartment", "placeholder": "Bathrooms", "display": false }]'></custom-calc-selected-options>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-left estamation-heading">
+                    <div class="divider"></div>
+                </div>
+            </div>
+            <div class="row">
+              <custom-calc-total rules='[{ "path": "Service.description" , "operator": "==", "value": "Carpet Cleaning", "placeholder": ["Bathrooms", "Deep cleaning", "Move in move out", "Inside the fridge", "Inside windows", "Load of laundry", "Inside the cabinets", "I have pets"], "display": false }, { "path": "Service.description" , "operator": "==", "value": "Studio Apartment", "placeholder": "Bathrooms", "display": false }]' type="currency" description="Total"></custom-calc-total>
             </div>
         </div>
       </div>
       
     </div>
   </div>
-<script type="text/javascript" src="runtime.26209474bfa8dc87a77c.js"></script><script type="text/javascript" src="polyfills.ae1b4121431ffc8b263c.js"></script><script type="text/javascript" src="main.40e9f0839c2e081aa91d.js"></script></body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/thecloudmethod/custom-calc@master/dist/custom-calc/runtime.26209474bfa8dc87a77c.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/thecloudmethod/custom-calc@master/dist/custom-calc/polyfills.ae1b4121431ffc8b263c.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/thecloudmethod/custom-calc@master/dist/custom-calc/main.02450b8772d513d40dd5.js"></script></body>
 </html>

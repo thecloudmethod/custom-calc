@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CostCaslValuesService } from '../services/cost-calc-values.service'
+import { Rules } from '../interfaces';
 
 @Component({
   selector: 'app-custom-calc-total',
@@ -11,20 +12,17 @@ export class CustomCalcTotalComponent implements OnInit {
 
   @Input() type: string;
   @Input() description: string;
+  @Input() rules: string;
+  parsedRules: Rules[] = [];
 
   constructor(public ccvs: CostCaslValuesService) { }
 
   ngOnInit() {
-  }
-
-  currentValue() {
-    let total: number = 0;
-
-    for(let option of Object.keys(this.ccvs._selected)) {
-      total = (total*1) + (this.ccvs._selected[option].value*1);
+    if(this.rules) {
+      this.parsedRules = JSON.parse(this.rules);
     }
 
-    return total;
+    this.ccvs.currentTotal(this.parsedRules).subscribe(total =>  this.total = total);
   }
 
 }

@@ -12,7 +12,6 @@
     {{ description }} <span *ngIf="multiplier > 0"> ({{ multiplier }})</span>
 </div>
 
-
 <ng-template #counter>
     <mat-form-field class="counter-form" [style.width]="width" clickOutside  (clickOutside)="unToggleButton($event)">
         <input class="counter-input" [style.width]="width" matInput type="text" [(ngModel)]="multiplier">

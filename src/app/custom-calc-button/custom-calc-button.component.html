@@ -1,10 +1,10 @@
 <div class="button-border" [class.selected]="selected" (mouseover)="hover=true" (mouseout)="hover=false" [style.border-color]="hover && !selected ? secondary : primary" [style.border-color]="selected ? secondary : primary">
-  <div class="click-overlay" (click)="toggleButton()"></div>
-  <ng-container *ngIf="image && !svg" >
-      <img [style.width]="width" [style.height]="height" [src]="image"/>
-  </ng-container>
+<div class="click-overlay" (click)="toggleButton()"></div>
+<ng-container *ngIf="image && !svg" >
+    <img [style.width]="width" [style.height]="height" [src]="image"/>
+</ng-container>
 
-  <div class="button" *ngIf="svgData" [innerHTML]="svgData | safe" [style.width]="width" [style.height]="height" [style.fill]="selected ? secondary : primary"></div>
+<div class="button" *ngIf="svgData" [innerHTML]="svgData | safe" [style.width]="width" [style.height]="height" [style.fill]="selected ? secondary : primary"></div>
 </div>
 <div class="description">
     {{ placeholder }}

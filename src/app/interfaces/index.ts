@@ -13,3 +13,11 @@ export interface Options {
   export interface DynamicProperty {
     [key: string]: any
   }
+
+  export interface Rules {
+    value: any;
+    operator: '==' | '!=' | '>' | '<' | '<=' | '>=';
+    path: string;
+    placeholder?: string;
+    display?: boolean;
+  }

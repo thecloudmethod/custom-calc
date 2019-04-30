@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input , HostBinding } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SvgService } from '../services/svg.service';
 import { CostCaslValuesService } from '../services/cost-calc-values.service'
 
-import { SortOptions } from '../libs/sort-options.class';
-import { CustomWindow, Options } from '../interfaces';
+import { RuleTools } from '../libs/rules-tools.class';
+import { Options, Rules } from '../interfaces';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-custom-calc-button',
@@ -22,11 +23,15 @@ export class CustomCalcButtonComponent implements OnInit {
   @Input() secondary: string = "aqua";
   @Input() value: number;
   @Input() sort: number;
+  @Input() rules: string;
+
+  @HostBinding('style.display') public display: string = 'block';
 
   selected: boolean = false;
   hover: boolean = false;
   svgData: string;
   parsedOptions: Options[];
+  parsedRules: Rules[];
 
 
   constructor(
@@ -36,6 +41,10 @@ export class CustomCalcButtonComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.rules) {
+      this.parsedRules = JSON.parse(this.rules);
+    }
+
     if(!this.description) {
       this.description = this.placeholder;
     }
@@ -43,21 +52,28 @@ export class CustomCalcButtonComponent implements OnInit {
     this.svgService.loadSvg(this.svg).subscribe(data => {
       this.svgData = data;
      })
+
+     this.ccvs.getSelected().subscribe(selected => {
+      this.testRules(selected);
+    })
   }
 
   toggleButton() {
     this.selected = !this.selected;
 
     if(this.selected) {
-      this.triggerChange();
+      this.ccvs.setSelected(
+        this.placeholder,
+        {
+          value: this.value,
+          name: this.placeholder,
+          description: this.description,
+          sort: this.sort
+        }
+      )
     } else {
-      delete(this.ccvs._selected[this.placeholder]);
+      this.ccvs.removeSelected(this.placeholder);
     }
-
-    let unSortedSelectionsArr = SortOptions.buildArrayFromPricesObject(this.ccvs._selected);
-    let sortedSelectionsArr = SortOptions.sortBy(unSortedSelectionsArr, 'sort');
-
-    this.ccvs._totalsList = sortedSelectionsArr;
 
   }
 
@@ -69,18 +85,26 @@ export class CustomCalcButtonComponent implements OnInit {
     return this.svgService.loadSvg(this.svg);
   }
 
-  triggerChange() {
-    if(this.ccvs._selected[this.placeholder]){
-      this.ccvs._selected[this.placeholder].value = this.value;
-      this.ccvs._selected[this.placeholder].name = this.placeholder;
-      this.ccvs._selected[this.placeholder].description = this.description;
-      this.ccvs._selected[this.placeholder].sort = this.sort;
-    } else {
-      this.ccvs._selected[this.placeholder] = {};
-      this.ccvs._selected[this.placeholder].value = this.value;
-      this.ccvs._selected[this.placeholder].name = this.placeholder;
-      this.ccvs._selected[this.placeholder].description = this.description;
-      this.ccvs._selected[this.placeholder].sort = this.sort;
-    }
+  testRules(selected) {
+    if(this.rules) {
+      let failedRuleCount: number = 0;
+
+      for(let rule of this.parsedRules) {
+        if(selected && rule.path) {
+          const res = _.get(selected, rule.path, null)
+
+          if(!RuleTools.testByCondition(res, rule.value, rule.operator)) {
+            failedRuleCount = failedRuleCount + 1
+          }
+        }
+        
+      }
+
+      if(failedRuleCount > 0 ) {
+        this.display = 'none';
+      } else {
+        this.display = 'block';
+      }
+    } 
   }
 }

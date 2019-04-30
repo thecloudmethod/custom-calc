@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SvgService } from '../services/svg.service';
 import { CostCaslValuesService } from '../services/cost-calc-values.service'
 
-import { SortOptions } from '../libs/sort-options.class';
-import { CustomWindow, Options } from '../interfaces';
+import { RuleTools } from '../libs/rules-tools.class';
+import { Options, Rules } from '../interfaces';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-custom-calc-counter-button',
@@ -23,6 +24,8 @@ export class CustomCalcCounterButtonComponent implements OnInit {
   @Input() secondary: string = "aqua";
   @Input() value: number;
   @Input() sort: number;
+  @Input() rules: string;
+  
 
 
   selected: boolean = false;
@@ -33,6 +36,9 @@ export class CustomCalcCounterButtonComponent implements OnInit {
   multiplier: number = 0;
   calc_value: number = 0;
   click_bypass_count: number = 0;
+  parsedRules: Rules[];
+  @HostBinding('style.display') public display: string = 'block';
+  
 
 
   constructor(
@@ -42,6 +48,10 @@ export class CustomCalcCounterButtonComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.rules) {
+      this.parsedRules = JSON.parse(this.rules);
+    }
+
     if(!this.description) {
       this.description = this.placeholder;
     }
@@ -53,6 +63,10 @@ export class CustomCalcCounterButtonComponent implements OnInit {
     this.svgService.loadSvg(this.svg).subscribe(data => {
       this.svgData = data;
      })
+
+     this.ccvs.getSelected().subscribe(selected => {
+      this.testRules(selected);
+    })
   }
 
   toggleButton() {
@@ -75,8 +89,15 @@ export class CustomCalcCounterButtonComponent implements OnInit {
 
     this.calc_value = this.value * this.multiplier;
 
-    this.triggerChange();
-    this.calculate();
+    this.ccvs.setSelected(
+      this.placeholder,
+      {
+        value: this.calc_value,
+        name: this.placeholder,
+        description: this.description+' ('+this.multiplier+')',
+        sort: this.sort
+      }
+    )
   }
 
   decrease() {
@@ -90,24 +111,23 @@ export class CustomCalcCounterButtonComponent implements OnInit {
 
     if(this.multiplier == 0) {
       this.selected = false;
-      delete(this.ccvs._selected[this.placeholder]);
-      this.calculate();
+      this.ccvs.removeSelected(this.placeholder);
     } else {
-      this.triggerChange();
-      this.calculate();
+      this.ccvs.setSelected(
+        this.placeholder,
+        {
+          value: this.calc_value,
+          name: this.placeholder,
+          description: this.description+' ('+this.multiplier+')',
+          sort: this.sort
+        }
+      )    
     }
   }
 
   leave() {
     this.hover = false;
     this.editing = false;
-  }
-
-  calculate() {
-    let unSortedSelectionsArr = SortOptions.buildArrayFromPricesObject(this.ccvs._selected);
-    let sortedSelectionsArr = SortOptions.sortBy(unSortedSelectionsArr, 'sort');
-
-    this.ccvs._totalsList = sortedSelectionsArr;
   }
 
   svgURL() {
@@ -118,18 +138,27 @@ export class CustomCalcCounterButtonComponent implements OnInit {
     return this.svgService.loadSvg(this.svg);
   }
 
-  triggerChange() {
-    if(this.ccvs._selected[this.placeholder]){
-      this.ccvs._selected[this.placeholder].value = this.calc_value;
-      this.ccvs._selected[this.placeholder].name = this.placeholder;
-      this.ccvs._selected[this.placeholder].description = this.description+' ('+this.multiplier+')';
-      this.ccvs._selected[this.placeholder].sort = this.sort;
-    } else {
-      this.ccvs._selected[this.placeholder] = {};
-      this.ccvs._selected[this.placeholder].value = this.calc_value;
-      this.ccvs._selected[this.placeholder].name = this.placeholder;
-      this.ccvs._selected[this.placeholder].description = this.description+' ('+this.multiplier+')';
-      this.ccvs._selected[this.placeholder].sort = this.sort;
-    }
+  testRules(selected) {
+    if(this.rules) {
+      let failedRuleCount: number = 0;
+
+      for(let rule of this.parsedRules) {
+        if(selected && rule.path) {
+          const res = _.get(selected, rule.path, null)
+
+          if(!RuleTools.testByCondition(res, rule.value, rule.operator)) {
+            failedRuleCount = failedRuleCount + 1
+          }
+        }
+        
+      }
+
+      if(failedRuleCount > 0 ) {
+        this.display = 'none';
+      } else {
+        this.display = 'block';
+      }
+    } 
   }
+
 }

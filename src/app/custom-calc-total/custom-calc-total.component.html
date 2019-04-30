@@ -1,9 +1,9 @@
 <span class="total-description"> {{ description }} </span>
 
 <ng-container *ngIf="type == 'currency'; else not">
-    <span class="total"> {{ currentValue() | currency }} </span>
+    <span class="total"> {{ total | currency }} </span>
 </ng-container>
 
 <ng-template #not>
-    <span class="total"> {{ currentValue() }} </span>
+    <span class="total"> {{ total }} </span>
 </ng-template>
