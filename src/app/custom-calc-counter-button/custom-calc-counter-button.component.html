@@ -14,7 +14,7 @@
 
 <ng-template #counter>
     <mat-form-field class="counter-form" [style.width]="width" clickOutside  (clickOutside)="unToggleButton($event)">
-        <input class="counter-input" [style.width]="width" matInput type="text" [(ngModel)]="multiplier">
+        <input class="counter-input" [style.width]="width" matInput type="text" [(ngModel)]="multiplier" disabled>
         <button mat-button *ngIf="multiplier > -1" matPrefix mat-icon-button aria-label="decrease" (click)="decrease()" [disabled]="multiplier == 0 ">
             <mat-icon>remove</mat-icon>
         </button>
